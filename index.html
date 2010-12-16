@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>Simple Load Demo</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+	<link rel="stylesheet" href="main.css" type="text/css" media="screen" charset="utf-8">
+</head>
+<body>
+	<div id="main">
+		<h1>Simple Load Demo</h1>
+		<p>Just a simple demo using a dropdown to pull include-type files from a server. As you change selections in the drop-down, the contents below it should change as well, using the select's onchange event.</p>
+		<select id="dropdown">
+			<option value="">Make a selection</option>
+			<option value="foo">Load foo.html</option>
+			<option value="bar">Load bar.html</option>
+			<option value="baz">Load baz.html</option>
+		</select>
+		<p>Your loaded value:</p>
+		<div id="display">
+		</div>
+	</div>
+	<!-- Normally inlining scripts isn't the best practice. I'm only doing it here for ease of reading. -->
+	<script>
+		// When the DOM is ready...
+		$(document).ready(function(){
+			// Set up the event binding
+			$('#dropdown').change(function() {
+				// Get the value of the selection
+				var value = this.value;
+
+				// If the value is empty in this case, just set the div to a default and exit
+				if (value == '') {
+					$('#display').html('Please make a selection');
+					return;
+				}
+
+				// Set up a URL to retrieve
+				var url = 'includes/' + value + '.html';
+
+				// Simply load it into the DOM element
+				$('#display').load(url);
+			});
+		}); // $(document).ready(...)
+	</script>
+</body>
+</html>
